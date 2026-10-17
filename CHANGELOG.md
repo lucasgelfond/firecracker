@@ -69,6 +69,12 @@ and this project adheres to
   the Raspberry Pi 5. The per-vCPU interrupt state was not saved, so restored
   VMs came back with their timer interrupt disabled.
 
+- [#6301](https://github.com/firecracker-microvm/firecracker/pull/6301): Fixed
+  snapshot restore on aarch64 hosts with a GICv2 interrupt controller, such as
+  the Raspberry Pi 5. The previous implementation accidentally shifted the vCPU
+  number bits twice, making all of the vCPU numbers 0 and breaking snapshot
+  restore of VMs with more than one vCPU.
+
 - [#6254](https://github.com/firecracker-microvm/firecracker/pull/6254) Fixed
   pausing a vCPU with an unfinished MMIO or port-I/O instruction. Pending I/O
   now completes before the vCPU pauses, so snapshots include its effects without
